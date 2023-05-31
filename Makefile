@@ -60,6 +60,7 @@ SRCS        :=      libft/ft_lstdelone.c \
 						  ft_printf/ft_putstr.c \
 						  ft_printf/ft_putuint.c \
 						  src/pipex.c \
+						  src/parse.c \
 						  
 OBJS        := $(SRCS:.c=.o)
 

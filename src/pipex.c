@@ -1,7 +1,8 @@
 #include "../inc/pipex.h"
 
-int main()
+int main(int ac, char** av)
 {
-    printf("test\n");
+    if (ac >= 2)
+        parse(av[1]);
     return 0;
 }
