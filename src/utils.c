@@ -13,17 +13,18 @@ int fill_file_struct(t_file *file, char* inFile, char* outFile)
     return 1;
 }
 
-int fill_cmd_struct(t_cmd *cmd, char* command1, char* command2)
+int fill_cmd_struct(t_cmd **head, char* command)
 {
-    if (!command1 && !command2)
-        return 0;
-    cmd->command[0] = ft_strdup(command1);
-    if (!cmd->command[0])
-        return 0;
-    cmd->command[1] = ft_strdup(command2);
-    if (!cmd->command[1])
-        return 0;
-    return 1;
+    t_cmd   *data;
+
+	data = (t_cmd *)malloc(sizeof(*data));
+	data->command = command;
+	data->next = NULL;
+	if (!*head)
+		*head = data;
+	else
+        (*head)->next = data;
+	return 1;
 }
 
 int open_files(t_file file)
@@ -42,30 +43,41 @@ char*   get_path(char** envp)
 {
     int index = 0;
     char** ret;
+    char *temp;
 
     while (envp[index])
     {
         ret = ft_split(envp[index], '=');
-        if (ret[0][0] == 'P' && ret[0][3] == 'H')
-            return ret[1];
+        if (ret[0][0] == 'P' && ret[0][3] == 'H') {
+            temp = ft_strdup(ret[1]);
+            ult_free_array(ret);
+            return temp;
+        }
         index++;
+        ult_free_array(ret);
     }
-    return 0;
+    return NULL;
 }
 
 char*   right_path(char* oldPath, char* cmd)
 {
     int     index = 0;
     char**  paths = ft_split(oldPath, ':');
+    
+    free(oldPath);
     while (paths[index])
     {
         char* s1 = ft_strjoin(paths[index], "/");
         char* s2 = ft_strjoin(s1, cmd);
-        if (access(s2, F_OK) == 0)
+        if (access(s2, F_OK) == 0){
+            ult_free_array(paths);
+            free(s1);
             return (s2);
+        }
         free(s1);
         free(s2);
         index++;
     }
+    ult_free_array(paths);
     return NULL;
 }

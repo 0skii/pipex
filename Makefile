@@ -4,7 +4,7 @@
 
 NAME        := pipex
 CC        := cc
-FLAGS    := -Wall -Wextra -Werror 
+FLAGS    := -Wall -Wextra -Werror -g -fsanitize=address
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
@@ -61,6 +61,7 @@ SRCS        :=      libft/ft_lstdelone.c \
 						  ft_printf/ft_putuint.c \
 						  src/pipex.c \
 						  src/utils.c \
+						  src/utils2.c \
 						  
 OBJS        := $(SRCS:.c=.o)
 
@@ -99,7 +100,7 @@ fclean:		clean
 
 re:			fclean all
 
-perfect:	re
+perfect:	all
 			@ ${RM} *.o */*.o */*/*.o
 			clear
 			@printf "$(GREEN)  >>-----------DONE----------<<\r"
