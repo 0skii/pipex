@@ -17,9 +17,13 @@ typedef struct s_cmd {
 }					t_cmd;
 
 typedef struct s_file {
-	const char*	file[2];
-}				t_file;
+	char*	file[2];
+}			t_file;
 
-char**  parse(const char* str/*, t_file *file, t_cmd *cmd*/);
+/*UTILS*/
+int 	fill_file_struct(t_file *file, char* inFile, char* outFile);
+int 	open_files(t_file file);
+char*   get_path(char** envp);
+char*   right_path(char* oldPath, char* cmd);
 
 #endif

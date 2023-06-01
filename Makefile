@@ -60,7 +60,7 @@ SRCS        :=      libft/ft_lstdelone.c \
 						  ft_printf/ft_putstr.c \
 						  ft_printf/ft_putuint.c \
 						  src/pipex.c \
-						  src/parse.c \
+						  src/utils.c \
 						  
 OBJS        := $(SRCS:.c=.o)
 
@@ -113,22 +113,10 @@ perfect:	re
 			@printf "$(GREEN)  >>>>>>>>>>---DONE---<<<<<<<<<\r"
 			@sleep 0.1
 			@printf "$(GREEN)  >>>>>>>>>>>>-DONE-<<<<<<<<<<<\r"
-			@sleep 0.1
-			@printf "$(GREEN)  >>-----------DONE----------<<\r"
-			@sleep 0.1
-			@printf "$(GREEN)  >>>>---------DONE--------<<<<\r"
-			@sleep 0.1
-			@printf "$(GREEN)  >>>>>>-------DONE------<<<<<<\r"
-			@sleep 0.1
-			@printf "$(GREEN)  >>>>>>>>-----DONE-----<<<<<<<\r"
-			@sleep 0.1
-			@printf "$(GREEN)  >>>>>>>>>>---DONE---<<<<<<<<<\r"
-			@sleep 0.1
-			@printf "$(GREEN)  >>>>>>>>>>>>-DONE-<<<<<<<<<<<\r"
 			@sleep 0.3
 			@printf "                                       \r"
 			@printf "\033[2;32m               DONE!            \r"
-			@sleep 0.5
+			@sleep 0.1
 			@printf "\033[1;;32m               DONE! \n"
 			@sleep 0.1
 			clear
