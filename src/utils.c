@@ -13,6 +13,19 @@ int fill_file_struct(t_file *file, char* inFile, char* outFile)
     return 1;
 }
 
+int fill_cmd_struct(t_cmd *cmd, char* command1, char* command2)
+{
+    if (!command1 && !command2)
+        return 0;
+    cmd->command[0] = ft_strdup(command1);
+    if (!cmd->command[0])
+        return 0;
+    cmd->command[1] = ft_strdup(command2);
+    if (!cmd->command[1])
+        return 0;
+    return 1;
+}
+
 int open_files(t_file file)
 {
     int file1 = open(file.file[0], O_RDONLY);
