@@ -1,60 +1,62 @@
 #include "../inc/pipex.h"
 
-int fill_file_struct(t_file *file, char* inFile, char* outFile)
-{
-    if (!inFile || !outFile)
-        return 0;
-    file->file[0] = ft_strdup(inFile);
-    if (!file->file[0])
-        return 0;
-    file->file[1] = ft_strdup(outFile);
-    if (!file->file[1])
-        return 0;
-    return 1;
-}
-
-int fill_cmd_struct(t_cmd **head, char* command)
+int fill_cmd_struct(t_head *head, char** av)
 {
     t_cmd   *data;
+    int     i;
 
-	data = (t_cmd *)malloc(sizeof(*data));
-	data->command = command;
-	data->next = NULL;
-	if (!*head)
-		*head = data;
-	else
-        (*head)->next = data;
-	return 1;
+    i = 2;
+    data = head->first;
+	while (av[i + 1])
+    {
+	    data = malloc(sizeof(*data));
+        data->command = ft_split(av[i], ' ');
+        data = data->next;
+        i++;
+    }
+	return 0;
 }
 
-int open_files(t_file file)
+t_head	*new_command(t_head *head, char** av)
 {
-    int file1 = open(file.file[0], O_RDONLY);
+	t_cmd			*data;
+	t_cmd			*x;
+
+	data = (t_cmd *)malloc(sizeof(*data));
+	data->command = av;
+	data->next = NULL;
+	if (!head->first)
+		head->first = data;
+	else
+	{
+		x = last_pos(head);
+		x->next = data;
+	}
+	head->size++;
+	return 0;
+}
+
+int open_files(char* in_name, char* out_name)
+{
+    int file1 = open(in_name, O_RDONLY);
     if (file1 == -1)
         return 0;
-    int file2 = open(file.file[1], O_CREAT | O_TRUNC | O_RDWR, 0644);
+    int file2 = open(out_name, O_CREAT | O_TRUNC | O_RDWR, 0644);
     if (file2 == -1)
         return 0;
-    write(file2, "bomdia", 6);
     return 1;
 }
 
 char*   get_path(char** envp)
 {
     int index = 0;
-    char** ret;
-    char *temp;
 
     while (envp[index])
     {
-        ret = ft_split(envp[index], '=');
-        if (ret[0][0] == 'P' && ret[0][3] == 'H') {
-            temp = ft_strdup(ret[1]);
-            ult_free_array(ret);
-            return temp;
+        if (envp[index][0] == 'P' && envp[index][3] == 'H') {
+            return (ft_strdup(envp[index] + 5));
         }
         index++;
-        ult_free_array(ret);
     }
     return NULL;
 }
@@ -64,7 +66,6 @@ char*   right_path(char* oldPath, char* cmd)
     int     index = 0;
     char**  paths = ft_split(oldPath, ':');
     
-    free(oldPath);
     while (paths[index])
     {
         char* s1 = ft_strjoin(paths[index], "/");

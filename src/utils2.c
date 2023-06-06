@@ -1,23 +1,14 @@
 #include "../inc/pipex.h"
 
-t_cmd	*last_pos(t_head *list)
-{
-	t_cmd	*x;
-
-	if (!list)
-		return (NULL);
-	x = list->first;
-	while (x && x->next)
-		x = x->next;
-	return (x);
-}
-
 int	ult_list_free(t_cmd *node)
 {
-	if (node->next)
-		ult_list_free(node->next);
-	free(node);
-	return (0);
+	while (node)
+	{
+		free(node->command);
+		free(node->pathname);
+		node = node->next;
+	}
+	return 0;
 }
 
 int	ult_free_array(char** arr)
@@ -30,4 +21,27 @@ int	ult_free_array(char** arr)
 	}
 	free(arr);
 	return 0;
+}
+
+void	print_list(t_head *list)
+{
+	t_cmd	*x;
+
+	x = list->first;
+	while (x)
+	{
+		ft_printf("%s -> ", x->command);
+		x = x->next;
+	}
+	write(1, "NULL\n", 6);
+}
+
+int	last_av(char** av)
+{
+	int	i;
+
+	i = 0;
+	while(av[i + 1])
+		i++;
+	return i;
 }
