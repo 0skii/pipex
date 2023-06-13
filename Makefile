@@ -124,5 +124,3 @@ perfect:	all
 			@echo "$(GREEN)$(NAME) created[0m ✔️"
 
 .PHONY:		all clean fclean re perfect
-
-

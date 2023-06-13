@@ -23,25 +23,8 @@ int	ult_free_array(char** arr)
 	return 0;
 }
 
-void	print_list(t_head *list)
+void	err(const char* type)
 {
-	t_cmd	*x;
-
-	x = list->first;
-	while (x)
-	{
-		ft_printf("%s -> ", x->command);
-		x = x->next;
-	}
-	write(1, "NULL\n", 6);
-}
-
-int	last_av(char** av)
-{
-	int	i;
-
-	i = 0;
-	while(av[i + 1])
-		i++;
-	return i;
+	perror(type);
+	exit(EXIT_FAILURE);
 }
