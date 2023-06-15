@@ -2,9 +2,9 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := pipex
-CC        := cc
-FLAGS    := -Wall -Wextra -Werror -g -fsanitize=address
+NAME     := pipex
+CC       := cc
+FLAGS    := -Wall -Wextra -Werror -g #-fsanitize=address
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
@@ -61,7 +61,7 @@ SRCS        :=      libft/ft_lstdelone.c \
 						  ft_printf/ft_putuint.c \
 						  src/pipex.c \
 						  src/utils.c \
-						  src/utils2.c \
+						  src/clean.c \
 						  
 OBJS        := $(SRCS:.c=.o)
 
@@ -71,7 +71,6 @@ OBJS        := $(SRCS:.c=.o)
 ################################################################################
 #                                  Makefile  objs                              #
 ################################################################################
-
 
 CLR_RMV		:= \033[0m
 RED		    := \033[1;31m

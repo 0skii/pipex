@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ozerbib- <ozerbib-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/15 13:24:03 by ozerbib-          #+#    #+#             */
+/*   Updated: 2023/06/15 14:03:34 by ozerbib-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -11,23 +23,11 @@
 # include "../libft/libft.h"
 # include "../ft_printf/ft_printf.h"
 
-typedef struct s_cmd {
-	char**			command;
-	char*			pathname;
-	struct s_cmd	*next;
-}					t_cmd;
-
-typedef struct s_head {
-	t_cmd	*first;
-	int		size;
-}			t_head;
-
 /*UTILS*/
-char*   get_path(char** envp);
-char*   right_path(char* oldPath, char* cmd);
-int		ult_list_free(t_cmd *node);
-int		ult_free_array(char** arr);
-void	err(const char* type);
-void    run(char *cmd, char **envp);
+char	*get_path(char **envp);
+char	*right_path(char *oldPath, char *cmd);
+int		ult_free_array(char **arr);
+void	err(const char *type);
+void	run(char *cmd, char **envp);
 
 #endif

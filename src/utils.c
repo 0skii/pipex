@@ -1,43 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ozerbib- <ozerbib-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/15 13:23:35 by ozerbib-          #+#    #+#             */
+/*   Updated: 2023/06/15 14:12:33 by ozerbib-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/pipex.h"
 
-char*   get_path(char** envp)
+char	*get_path(char **envp)
 {
-    int index = 0;
+	int	index;
 
-    while (envp[index])
-    {
-        if (envp[index][0] == 'P' && envp[index][3] == 'H') {
-            return (ft_strdup(envp[index] + 5));
-        }
-        index++;
-    }
-    return NULL;
+	index = 0;
+	while (envp[index])
+	{
+		if (envp[index][0] == 'P' && envp[index][3] == 'H')
+			return (ft_strdup(envp[index] + 5));
+		index++;
+	}
+	return (NULL);
 }
 
-char*   right_path(char* oldPath, char* cmd)
+char	*right_path(char *oldPath, char *cmd)
 {
-    int     index = 0;
-    char**  paths = ft_split(oldPath, ':');
-    
-    while (paths[index])
-    {
-        char* s1 = ft_strjoin(paths[index], "/");
-        char* s2 = ft_strjoin(s1, cmd);
-        if (access(s2, F_OK) == 0){
-            ult_free_array(paths);
-            free(s1);
-            return (s2);
-        }
-        free(s1);
-        free(s2);
-        index++;
-    }
-    ult_free_array(paths);
-    return NULL;
+	int		index;
+	char	**paths;
+	char	*s1;
+	char	*s2;
+
+	paths = ft_split(oldPath, ':');
+	index = 0;
+	while (paths[index])
+	{
+		s1 = ft_strjoin(paths[index], "/");
+		s2 = ft_strjoin(s1, cmd);
+		if (access(s2, F_OK) == 0)
+		{
+			ult_free_array(paths);
+			free(s1);
+			return (s2);
+		}
+		free(s1);
+		free(s2);
+		index++;
+	}
+	ult_free_array(paths);
+	return (NULL);
 }
 
-
-void    run(char *cmd, char **envp)
+void	run(char *cmd, char **envp)
 {
 	char	**exec_cmd;
 	char	*path;
