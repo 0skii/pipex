@@ -6,7 +6,7 @@
 /*   By: ozerbib- <ozerbib-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:23:25 by ozerbib-          #+#    #+#             */
-/*   Updated: 2023/06/15 14:20:32 by ozerbib-         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:01:15 by ozerbib-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ int	main(int ac, char **av, char **envp)
 		err("fork");
 	if (p1 == 0)
 		process_1(av, in_out, envp);
+	waitpid(-1, &status, 0);
 	p2 = fork();
 	if (p2 < 0)
 		err("fork");
 	if (p2 == 0)
 		process_2(av, in_out, envp);
-	waitpid(-1, &status, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ozerbib- <ozerbib-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:23:35 by ozerbib-          #+#    #+#             */
-/*   Updated: 2023/06/15 14:12:33 by ozerbib-         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:24:57 by ozerbib-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*get_path(char **envp)
 			return (ft_strdup(envp[index] + 5));
 		index++;
 	}
+	ult_free_array(envp);
 	return (NULL);
 }
 
@@ -50,6 +51,7 @@ char	*right_path(char *oldPath, char *cmd)
 		index++;
 	}
 	ult_free_array(paths);
+	free(oldPath);
 	return (NULL);
 }
 
@@ -57,21 +59,14 @@ void	run(char *cmd, char **envp)
 {
 	char	**exec_cmd;
 	char	*path;
-	int		k;
 
 	exec_cmd = ft_split(cmd, ' ');
 	cmd = *exec_cmd;
 	path = right_path(get_path(envp), cmd);
 	if (!path)
 	{
-		k = 0;
-		while (exec_cmd[k])
-		{	
-			free(exec_cmd[k]);
-			k++;
-		}
-		free(exec_cmd);
-		err("Failed to locate path!");
+		ult_free_array(exec_cmd);
+		err("Command not found!");
 	}
 	if (execve(path, exec_cmd, envp) == -1)
 		err("execve");

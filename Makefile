@@ -4,7 +4,7 @@
 
 NAME     := pipex
 CC       := cc
-FLAGS    := -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS    := -Wall -Wextra -Werror -g -fsanitize=address
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
